@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Links da Mari | Vitrine & Gerenciador de Produtos</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <style>
+    :root {
+      --bg-primary: #fdfbf9;
+      --bg-secondary: #f6efe9;
+      --bg-card: #ffffff;
+      --text-primary: #2d1e1b;
+      --text-secondary: #6e5954;
+      --text-muted: #9e8782;
+      --accent: #b85d4e;
+      --accent-hover: #9f493b;
+      --accent-soft: #f9ebe8;
+      --gold: #c99d66;
+      --gold-soft: #faf3ea;
+      --border: #ebe0da;
+      --success: #2d8a61;
+      --danger: #d94646;
+      --shadow-sm: 0 2px 8px rgba(45, 30, 27, 0.05);
+      --shadow-md: 0 8px 24px rgba(45, 30, 27, 0.08);
+      --shadow-lg: 0 16px 40px rgba(45, 30, 27, 0.12);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-full: 9999px;
+      --transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-primary);
+      background-image: 
+        radial-gradient(at 0% 0%, rgba(184, 93, 78, 0.07) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(201, 157, 102, 0.08) 0px, transparent 50%);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.5;
+      padding-bottom: 80px;
+    }
+
+    /* Top Admin / Mode Bar */
+    .top-bar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(253, 251, 249, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .brand-mini {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .brand-mini span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: inline-block;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .mode-switch {
+      display: inline-flex;
+      background: var(--bg-secondary);
+      padding: 4px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+    }
+
+    .mode-btn {
+      border: none;
+      background: transparent;
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .mode-btn.active {
+      background: var(--bg-card);
+      color: var(--accent);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 9px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+      text-decoration: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(184, 93, 78, 0.25);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: var(--bg-card);
+      color: var(--text-primary);
+      border-color: var(--border);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-secondary);
+      border-color: var(--text-muted);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text-secondary);
+    }
+
+    .btn-ghost:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+
+    .icon-sm {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Main Container */
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 32px 20px;
+    }
+
+    /* Profile Header */
+    .profile-header {
+      text-align: center;
+      margin-bottom: 32px;
+      position: relative;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 108px;
+      height: 108px;
+      margin: 0 auto 16px;
+    }
+
+    .avatar {
+      width: 108px;
+      height: 108px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--bg-card);
+      box-shadow: var(--shadow-md), 0 0 0 2px var(--accent);
+      background: var(--bg-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent);
+      overflow: hidden;
+    }
+
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .edit-profile-btn {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      border: 2px solid var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .edit-profile-btn:hover {
+      transform: scale(1.08);
+      background: var(--accent-hover);
+    }
+
+    .profile-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.25rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+
+    .profile-bio {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      max-width: 480px;
+      margin: 0 auto 18px;
+    }
+
+    /* Quick Social Links */
+    .social-pills {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .social-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: var(--radius-full);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .social-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* Admin Dashboard Stats */
+    .stats-bar {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 28px;
+    }
+
+    .stat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-sm);
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .stat-info h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .stat-info p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Search & Category Filters */
+    .controls-section {
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 10px;
+    }
+
+    .search-box {
+      flex: 1;
+      position: relative;
+    }
+
+    .search-box i, .search-box svg {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      width: 18px;
+      height: 18px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 16px 12px 42px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      font-size: 0.92rem;
+      color: var(--text-primary);
+      font-family: inherit;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(184, 93, 78, 0.12);
+    }
+
+    .categories-bar {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      scrollbar-width: none;
+    }
+
+    .categories-bar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .cat-chip {
+      padding: 7px 16px;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: var(--transition);
+    }
+
+    .cat-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .cat-chip.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* Products List / Grid */
+    .products-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .product-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .product-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: #dccbc3;
+    }
+
+    .product-card.featured {
+      border: 1.5px solid var(--gold);
+      background: linear-gradient(to right, #ffffff, #fffdf9);
+    }
+
+    .product-card.inactive-product {
+      opacity: 0.55;
+      background: #f9f6f4;
+    }
+
+    .product-thumb {
+      width: 84px;
+      height: 84px;
+      border-radius: var(--radius-sm);
+      background: var(--bg-secondary);
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .product-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .badge-featured {
+      position: absolute;
+      top: 10px;
+      right: 12px;
+      background: var(--gold-soft);
+      color: #966c36;
+      border: 1px solid rgba(201, 157, 102, 0.35);
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      padding: 3px 8px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .product-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .product-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+      flex-wrap: wrap;
+    }
+
+    .product-cat {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      background: var(--accent-soft);
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .product-status-badge {
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: #eee;
+      color: #666;
+    }
+
+    .product-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding-right: 75px;
+    }
+
+    .product-desc {
+      font-size: 0.83rem;
+      color: var(--text-secondary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .product-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .price-box {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+    }
+
+    .price-current {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .price-old {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+
+    .product-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-buy {
+      background: var(--accent);
+      color: #fff;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .btn-buy:hover {
+      background: var(--accent-hover);
+      transform: translateX(2px);
+    }
+
+    .icon-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .icon-btn:hover {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border-color: var(--text-muted);
+    }
+
+    .icon-btn.danger:hover {
+      background: #fef2f2;
+      color: var(--danger);
+      border-color: #fecaca;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 48px 24px;
+      background: var(--bg-card);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-lg);
+      color: var(--text-secondary);
+    }
+
+    .empty-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+
+    /* Modal Styles */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(45, 30, 27, 0.45);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal {
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 520px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      padding: 24px;
+      animation: modalSlideUp 0.25s ease;
+    }
+
+    @keyframes modalSlideUp {
+      from { transform: translateY(16px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .modal-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .form-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-group label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .form-control {
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: var(--bg-primary);
+      font-family: inherit;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      transition: var(--transition);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: #fff;
+      box-shadow: 0 0 0 3px rgba(184, 93, 78, 0.12);
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checkbox-group input {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--accent);
+      cursor: pointer;
+    }
+
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 200;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toast {
+      background: var(--text-primary);
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      box-shadow: var(--shadow-md);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: slideInRight 0.25s ease;
+    }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    /* Hide admin elements when in Visitor Mode */
+    body.visitor-mode .admin-only {
+      display: none !important;
+    }
+
+    body.visitor-mode .product-title {
+      padding-right: 0;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 600px) {
+      .stats-bar {
+        grid-template-columns: 1fr;
+      }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .product-card {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .product-thumb {
+        width: 100%;
+        height: 160px;
+      }
+      .product-footer {
+        width: 100%;
+        margin-top: 6px;
+      }
+      .top-bar {
+        padding: 10px 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation & Mode Switcher -->
+  <header class="top-bar">
+    <div class="brand-mini">
+      <span class="dot"></span>
+      <span id="navBrandName">Links da Mari</span>
+    </div>
+
+    <div class="top-actions">
+      <div class="mode-switch" title="Alternar entre modo Edição e visão da Cliente">
+        <button class="mode-btn active" id="btnModeAdmin" onclick="setMode('admin')">
+          <i data-lucide="sliders" class="icon-sm"></i> Gerenciar
+        </button>
+        <button class="mode-btn" id="btnModeVisitor" onclick="setMode('visitor')">
+          <i data-lucide="eye" class="icon-sm"></i> Vitrine
+        </button>
+      </div>
+
+      <button class="btn btn-outline admin-only" onclick="exportBackup()" title="Exportar backup dos links">
+        <i data-lucide="download" class="icon-sm"></i> Backup
+      </button>
+
+      <label class="btn btn-outline admin-only" title="Importar backup de links" style="margin:0;">
+        <i data-lucide="upload" class="icon-sm"></i> Importar
+        <input type="file" id="importFile" accept=".json" style="display:none" onchange="importBackup(event)">
+      </label>
+
+      <button class="btn btn-primary admin-only" onclick="openProductModal()">
+        <i data-lucide="plus" class="icon-sm"></i> Novo Produto
+      </button>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- Profile Section -->
+    <section class="profile-header">
+      <div class="avatar-wrapper">
+        <div class="avatar" id="profileAvatar">
+          <span>M</span>
+        </div>
+        <button class="edit-profile-btn admin-only" onclick="openProfileModal()" title="Editar Perfil da Mari">
+          <i data-lucide="pencil" class="icon-sm"></i>
+        </button>
+      </div>
+      <h1 class="profile-title" id="profileName">Achadinhos & Produtos da Mari</h1>
+      <p class="profile-bio" id="profileBio">Seleção especial dos produtos que eu vendo e indico com carinho. Clique nos links abaixo para garantir o seu! ✨</p>
+
+      <div class="social-pills" id="socialPills">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- Admin Statistics -->
+    <section class="stats-bar admin-only">
+      <div class="stat-card">
+        <div class="stat-icon"><i data-lucide="package"></i></div>
+        <div class="stat-info">
+          <h4 id="statTotal">0</h4>
+          <p>Produtos Cadastrados</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i data-lucide="sparkles"></i></div>
+        <div class="stat-info">
+          <h4 id="statFeatured">0</h4>
+          <p>Em Destaque</p>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon"><i data-lucide="mouse-pointer-click"></i></div>
+        <div class="stat-info">
+          <h4 id="statClicks">0</h4>
+          <p>Cliques nos Links</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search and Category Filters -->
+    <section class="controls-section">
+      <div class="search-row">
+        <div class="search-box">
+          <i data-lucide="search"></i>
+          <input type="text" id="searchInput" class="search-input" placeholder="Buscar produto pelo nome, categoria ou descrição..." oninput="renderProducts()">
+        </div>
+        <button class="btn btn-primary admin-only" onclick="openProductModal()">
+          <i data-lucide="plus" class="icon-sm"></i> Adicionar Link
+        </button>
+      </div>
+
+      <div class="categories-bar" id="categoriesBar">
+        <!-- Rendered dynamically -->
+      </div>
+    </section>
+
+    <!-- Products List -->
+    <section id="productsContainer" class="products-grid">
+      <!-- Rendered dynamically -->
+    </section>
+  </main>
+
+  <!-- Modal: Add / Edit Product -->
+  <div class="modal-backdrop" id="productModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="productModalTitle">Novo Produto da Mari</h2>
+        <button class="icon-btn" onclick="closeProductModal()">
+          <i data-lucide="x" class="icon-sm"></i>
+        </button>
+      </div>
+      <form id="productForm" onsubmit="saveProduct(event)">
+        <input type="hidden" id="prodId">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="prodTitle">Nome do Produto *</label>
+            <input type="text" id="prodTitle" class="form-control" required placeholder="Ex: Kit Skincare Glow Rosé">
+          </div>
+
+          <div class="form-group">
+            <label for="prodUrl">Link do Produto (URL de Compra / WhatsApp / Loja) *</label>
+            <input type="url" id="prodUrl" class="form-control" required placeholder="https://...">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prodPrice">Preço Atual (opcional)</label>
+              <input type="text" id="prodPrice" class="form-control" placeholder="Ex: R$ 89,90">
+            </div>
+            <div class="form-group">
+              <label for="prodOldPrice">Preço Antigo / De (opcional)</label>
+              <input type="text" id="prodOldPrice" class="form-control" placeholder="Ex: R$ 129,90">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="prodCategory">Categoria</label>
+              <input type="text" id="prodCategory" class="form-control" list="categorySuggestions" placeholder="Ex: Beleza, Moda, Casa...">
+              <datalist id="categorySuggestions">
+                <option value="Destaques">
+                <option value="Moda & Acessórios">
+                <option value="Beleza & Skincare">
+                <option value="Casa & Decoração">
+                <option value="Promoções">
+              </datalist>
+            </div>
+            <div class="form-group">
+              <label for="prodCta">Texto do Botão</label>
+              <input type="text" id="prodCta" class="form-control" placeholder="Ex: Comprar Agora" value="Eu Quero!">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="prodImage">URL da Foto do Produto (opcional)</label>
+            <input type="url" id="prodImage" class="form-control" placeholder="https://exemplo.com/foto.jpg">
+          </div>
+
+          <div class="form-group">
+            <label for="prodDesc">Descrição Curta / Benefício (opcional)</label>
+            <textarea id="prodDesc" class="form-control" rows="2" placeholder="Ex: Frete grátis + cupom MARI10 no checkout!"></textarea>
+          </div>
+
+          <div class="form-row">
+            <label class="checkbox-group">
+              <input type="checkbox" id="prodFeatured">
+              <span>⭐ Destacar no topo</span>
+            </label>
+            <label class="checkbox-group">
+              <input type="checkbox" id="prodActive" checked>
+              <span>✅ Produto visível na vitrine</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeProductModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary">
+            <i data-lucide="check" class="icon-sm"></i> Salvar Produto
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Modal: Edit Mari's Profile -->
+  <div class="modal-backdrop" id="profileModal">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title">Personalizar Perfil da Mari</h2>
+        <button class="icon-btn" onclick="closeProfileModal()">
+          <i data-lucide="x" class="icon-sm"></i>
+        </button>
+      </div>
+      <form id="profileForm" onsubmit="saveProfile(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="profNameInput">Título da Página</label>
+            <input type="text" id="profNameInput" class="form-control" required>
+          </div>
+          <div class="form-group">
+            <label for="profBioInput">Biografia / Mensagem de Boas-vindas</label>
+            <textarea id="profBioInput" class="form-control" rows="2"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="profAvatarInput">URL da Foto de Perfil (deixe vazio para usar a inicial M)</label>
+            <input type="url" id="profAvatarInput" class="form-control" placeholder="https://...">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="profWhatsappInput">WhatsApp (apenas números com DDD)</label>
+              <input type="text" id="profWhatsappInput" class="form-control" placeholder="5511999999999">
+            </div>
+            <div class="form-group">
+              <label for="profInstagramInput">Usuário do Instagram (sem @)</label>
+              <input type="text" id="profInstagramInput" class="form-control" placeholder="mari.loja">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" onclick="closeProfileModal()">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Salvar Perfil</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script>
+    const STORAGE_KEY_PRODUCTS = 'mari_links_products_v1';
+    const STORAGE_KEY_PROFILE = 'mari_links_profile_v1';
+
+    const defaultProfile = {
+      name: 'Achadinhos & Produtos da Mari',
+      bio: 'Seleção especial dos produtos que eu vendo e indico com carinho. Clique nos links abaixo para garantir o seu! ✨',
+      avatarUrl: '',
+      whatsapp: '',
+      instagram: 'mari'
+    };
+
+    const defaultProducts = [
+      {
+        id: 'prod-1',
+        title: 'Kit Skincare Glow Rosé - Edição Completa',
+        url: 'https://wa.me/5511999999999?text=Oi%20Mari!%20Quero%20saber%20mais%20sobre%20o%20Kit%20Skincare',
+        price: 'R$ 119,90',
+        oldPrice: 'R$ 159,90',
+        category: 'Beleza & Skincare',
+        cta: 'Pedir com a Mari',
+        image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03?auto=format&fit=crop&w=400&q=80',
+        desc: 'Limpeza suave, hidratação profunda e sérum iluminador para todos os tipos de pele.',
+        featured: true,
+        active: true,
+        clicks: 14
+      },
+      {
+        id: 'prod-2',
+        title: 'Bolsa Tiracolo Couro Ecológico Caramelo',
+        url: 'https://wa.me/5511999999999?text=Oi%20Mari!%20Tenho%20interesse%20na%20Bolsa%20Caramelo',
+        price: 'R$ 149,00',
+        oldPrice: 'R$ 189,00',
+        category: 'Moda & Acessórios',
+        cta: 'Comprar Agora',
+        image: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=400&q=80',
+        desc: 'Acabamento premium com alça ajustável e metais dourados que não escurecem.',
+        featured: true,
+        active: true,
+        clicks: 9
+      },
+      {
+        id: 'prod-3',
+        title: 'Vela Aromática Baunilha & Âmbar (200g)',
+        url: 'https://wa.me/5511999999999?text=Oi%20Mari!%20Quero%20a%20Vela%20Arom%C3%A1tica',
+        price: 'R$ 54,90',
+        oldPrice: '',
+        category: 'Casa & Decoração',
+        cta: 'Garantir a Minha',
+        image: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=400&q=80',
+        desc: 'Feita com cera vegetal de coco e pavio de algodão. Perfuma o ambiente todo!',
+        featured: false,
+        active: true,
+        clicks: 6
+      }
+    ];
+
+    let profile = loadProfile();
+    let products = loadProducts();
+    let selectedCategory = 'Todos';
+    let currentMode = 'admin';
+
+    function loadProfile() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY_PROFILE);
+        return saved ? { ...defaultProfile, ...JSON.parse(saved) } : { ...defaultProfile };
+      } catch (e) {
+        return { ...defaultProfile };
+      }
+    }
+
+    function loadProducts() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY_PRODUCTS);
+        return saved ? JSON.parse(saved) : [...defaultProducts];
+      } catch (e) {
+        return [...defaultProducts];
+      }
+    }
+
+    function persistProducts() {
+      localStorage.setItem(STORAGE_KEY_PRODUCTS, JSON.stringify(products));
+      updateStats();
+      renderCategories();
+      renderProducts();
+    }
+
+    function persistProfile() {
+      localStorage.setItem(STORAGE_KEY_PROFILE, JSON.stringify(profile));
+      renderProfile();
+    }
+
+    function renderProfile() {
+      document.getElementById('profileName').textContent = profile.name;
+      document.getElementById('navBrandName').textContent = profile.name;
+      document.getElementById('profileBio').textContent = profile.bio;
+
+      const avatarEl = document.getElementById('profileAvatar');
+      if (profile.avatarUrl && profile.avatarUrl.trim() !== '') {
+        avatarEl.innerHTML = `<img src="${escapeHtml(profile.avatarUrl)}" alt="Foto da Mari" onerror="this.parentElement.innerHTML='<span>M</span>'">`;
+      } else {
+        const initial = (profile.name || 'M').trim().charAt(0).toUpperCase();
+        avatarEl.innerHTML = `<span>${escapeHtml(initial)}</span>`;
+      }
+
+      const pillsEl = document.getElementById('socialPills');
+      let pillsHtml = '';
+
+      if (profile.whatsapp && profile.whatsapp.trim() !== '') {
+        const cleanPhone = profile.whatsapp.replace(/\D/g, '');
+        pillsHtml += `
+          <a href="https://wa.me/${cleanPhone}" target="_blank" rel="noopener" class="social-pill">
+            <i data-lucide="message-circle" class="icon-sm"></i> Chamar no WhatsApp
+          </a>
+        `;
+      }
+
+      if (profile.instagram && profile.instagram.trim() !== '') {
+        const cleanInsta = profile.instagram.replace(/^@/, '').trim();
+        pillsHtml += `
+          <a href="https://instagram.com/${encodeURIComponent(cleanInsta)}" target="_blank" rel="noopener" class="social-pill">
+            <i data-lucide="instagram" class="icon-sm"></i> @${escapeHtml(cleanInsta)}
+          </a>
+        `;
+      }
+
+      pillsEl.innerHTML = pillsHtml;
+      lucide.createIcons();
+    }
+
+    function updateStats() {
+      const total = products.length;
+      const featured = products.filter(p => p.featured).length;
+      const clicks = products.reduce((acc, p) => acc + (Number(p.clicks) || 0), 0);
+
+      document.getElementById('statTotal').textContent = total;
+      document.getElementById('statFeatured').textContent = featured;
+      document.getElementById('statClicks').textContent = clicks;
+    }
+
+    function renderCategories() {
+      const bar = document.getElementById('categoriesBar');
+      const visibleProducts = currentMode === 'visitor' ? products.filter(p => p.active !== false) : products;
+      const cats = ['Todos', ...new Set(visibleProducts.map(p => (p.category || 'Geral').trim()).filter(Boolean))];
+
+      if (!cats.includes(selectedCategory)) {
+        selectedCategory = 'Todos';
+      }
+
+      bar.innerHTML = cats.map(cat => `
+        <button class="cat-chip ${cat === selectedCategory ? 'active' : ''}" onclick="selectCategory('${escapeQuotes(cat)}')">
+          ${escapeHtml(cat)}
+        </button>
+      `).join('');
+    }
+
+    function selectCategory(cat) {
+      selectedCategory = cat;
+      renderCategories();
+      renderProducts();
+    }
+
+    function renderProducts() {
+      const container = document.getElementById('productsContainer');
+      const query = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+
+      let filtered = products.filter(p => {
+        if (currentMode === 'visitor' && p.active === false) return false;
+        const cat = (p.category || 'Geral').trim();
+        if (selectedCategory !== 'Todos' && cat !== selectedCategory) return false;
+        if (query) {
+          const haystack = `${p.title} ${p.desc || ''} ${p.category || ''} ${p.price || ''}`.toLowerCase();
+          return haystack.includes(query);
+        }
+        return true;
+      });
+
+      // Sort featured first
+      filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon"><i data-lucide="shopping-bag"></i></div>
+            <h3>Nenhum produto encontrado</h3>
+            <p style="margin-top: 6px; margin-bottom: 16px;">Adicione novos links de produtos da Mari ou limpe o filtro de busca.</p>
+            <button class="btn btn-primary admin-only" onclick="openProductModal()">
+              <i data-lucide="plus" class="icon-sm"></i> Adicionar Primeiro Produto
+            </button>
+          </div>
+        `;
+        lucide.createIcons();
+        return;
+      }
+
+      container.innerHTML = filtered.map(prod => {
+        const hasImage = prod.image && prod.image.trim() !== '';
+        const thumbContent = hasImage
+          ? `<img src="${escapeHtml(prod.image)}" alt="${escapeHtml(prod.title)}" onerror="this.parentElement.innerHTML='<i data-lucide=\\'shopping-bag\\'></i>'; lucide.createIcons();">`
+          : `<i data-lucide="shopping-bag"></i>`;
+
+        return `
+          <article class="product-card ${prod.featured ? 'featured' : ''} ${prod.active === false ? 'inactive-product' : ''}">
+            ${prod.featured ? `<span class="badge-featured"><i data-lucide="star" style="width:12px;height:12px;"></i> Destaque</span>` : ''}
+
+            <div class="product-thumb">
+              ${thumbContent}
+            </div>
+
+            <div class="product-content">
+              <div class="product-meta">
+                <span class="product-cat">${escapeHtml(prod.category || 'Geral')}</span>
+                ${prod.active === false ? `<span class="product-status-badge">Oculto na vitrine</span>` : ''}
+                <span class="product-status-badge admin-only" title="Cliques neste link">
+                  ${Number(prod.clicks) || 0} cliques
+                </span>
+              </div>
+
+              <h3 class="product-title">${escapeHtml(prod.title)}</h3>
+              ${prod.desc ? `<p class="product-desc">${escapeHtml(prod.desc)}</p>` : ''}
+
+              <div class="product-footer">
+                <div class="price-box">
+                  ${prod.price ? `<span class="price-current">${escapeHtml(prod.price)}</span>` : ''}
+                  ${prod.oldPrice ? `<span class="price-old">${escapeHtml(prod.oldPrice)}</span>` : ''}
+                </div>
+
+                <div class="product-actions">
+                  <button class="icon-btn" onclick="copyProductLink('${prod.id}')" title="Copiar link do produto">
+                    <i data-lucide="copy" class="icon-sm"></i>
+                  </button>
+
+                  <button class="icon-btn admin-only" onclick="toggleFeatured('${prod.id}')" title="Destacar / Remover destaque">
+                    <i data-lucide="star" class="icon-sm" style="${prod.featured ? 'fill: var(--gold); color: var(--gold);' : ''}"></i>
+                  </button>
+
+                  <button class="icon-btn admin-only" onclick="openProductModal('${prod.id}')" title="Editar produto">
+                    <i data-lucide="pencil" class="icon-sm"></i>
+                  </button>
+
+                  <button class="icon-btn danger admin-only" onclick="deleteProduct('${prod.id}')" title="Excluir produto">
+                    <i data-lucide="trash-2" class="icon-sm"></i>
+                  </button>
+
+                  <a href="${escapeHtml(prod.url)}" target="_blank" rel="noopener" class="btn-buy" onclick="registerClick('${prod.id}')">
+                    <span>${escapeHtml(prod.cta || 'Eu Quero!')}</span>
+                    <i data-lucide="external-link" class="icon-sm"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      lucide.createIcons();
+    }
+
+    function setMode(mode) {
+      currentMode = mode;
+      document.body.classList.toggle('visitor-mode', mode === 'visitor');
+      document.getElementById('btnModeAdmin').classList.toggle('active', mode === 'admin');
+      document.getElementById('btnModeVisitor').classList.toggle('active', mode === 'visitor');
+      renderCategories();
+      renderProducts();
+    }
+
+    function openProductModal(id = null) {
+      const modal = document.getElementById('productModal');
+      const form = document.getElementById('productForm');
+      form.reset();
+
+      if (id) {
+        const prod = products.find(p => p.id === id);
+        if (!prod) return;
+        document.getElementById('productModalTitle').textContent = 'Editar Produto';
+        document.getElementById('prodId').value = prod.id;
+        document.getElementById('prodTitle').value = prod.title || '';
+        document.getElementById('prodUrl').value = prod.url || '';
+        document.getElementById('prodPrice').value = prod.price || '';
+        document.getElementById('prodOldPrice').value = prod.oldPrice || '';
+        document.getElementById('prodCategory').value = prod.category || '';
+        document.getElementById('prodCta').value = prod.cta || 'Eu Quero!';
+        document.getElementById('prodImage').value = prod.image || '';
+        document.getElementById('prodDesc').value = prod.desc || '';
+        document.getElementById('prodFeatured').checked = !!prod.featured;
+        document.getElementById('prodActive').checked = prod.active !== false;
+      } else {
+        document.getElementById('productModalTitle').textContent = 'Novo Produto da Mari';
+        document.getElementById('prodId').value = '';
+        document.getElementById('prodCta').value = 'Eu Quero!';
+        document.getElementById('prodActive').checked = true;
+      }
+
+      modal.classList.add('open');
+    }
+
+    function closeProductModal() {
+      document.getElementById('productModal').classList.remove('open');
+    }
+
+    function saveProduct(e) {
+      e.preventDefault();
+      const id = document.getElementById('prodId').value;
+      const productData = {
+        id: id || 'prod-' + Date.now(),
+        title: document.getElementById('prodTitle').value.trim(),
+        url: document.getElementById('prodUrl').value.trim(),
+        price: document.getElementById('prodPrice').value.trim(),
+        oldPrice: document.getElementById('prodOldPrice').value.trim(),
+        category: document.getElementById('prodCategory').value.trim() || 'Geral',
+        cta: document.getElementById('prodCta').value.trim() || 'Eu Quero!',
+        image: document.getElementById('prodImage').value.trim(),
+        desc: document.getElementById('prodDesc').value.trim(),
+        featured: document.getElementById('prodFeatured').checked,
+        active: document.getElementById('prodActive').checked
+      };
+
+      if (id) {
+        const idx = products.findIndex(p => p.id === id);
+        if (idx > -1) {
+          productData.clicks = products[idx].clicks || 0;
+          products[idx] = productData;
+        }
+        showToast('Produto atualizado com sucesso!');
+      } else {
+        productData.clicks = 0;
+        products.unshift(productData);
+        showToast('Novo link da Mari adicionado!');
+      }
+
+      persistProducts();
+      closeProductModal();
+    }
+
+    function deleteProduct(id) {
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+      if (confirm(`Deseja mesmo remover "${prod.title}" da lista da Mari?`)) {
+        products = products.filter(p => p.id !== id);
+        persistProducts();
+        showToast('Produto removido.');
+      }
+    }
+
+    function toggleFeatured(id) {
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+      prod.featured = !prod.featured;
+      persistProducts();
+      showToast(prod.featured ? 'Produto destacado no topo!' : 'Destaque removido.');
+    }
+
+    function registerClick(id) {
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+      prod.clicks = (Number(prod.clicks) || 0) + 1;
+      persistProducts();
+    }
+
+    function copyProductLink(id) {
+      const prod = products.find(p => p.id === id);
+      if (!prod) return;
+      navigator.clipboard.writeText(prod.url).then(() => {
+        showToast('Link copiado para a área de transferência!');
+      });
+    }
+
+    function openProfileModal() {
+      document.getElementById('profNameInput').value = profile.name || '';
+      document.getElementById('profBioInput').value = profile.bio || '';
+      document.getElementById('profAvatarInput').value = profile.avatarUrl || '';
+      document.getElementById('profWhatsappInput').value = profile.whatsapp || '';
+      document.getElementById('profInstagramInput').value = profile.instagram || '';
+      document.getElementById('profileModal').classList.add('open');
+    }
+
+    function closeProfileModal() {
+      document.getElementById('profileModal').classList.remove('open');
+    }
+
+    function saveProfile(e) {
+      e.preventDefault();
+      profile = {
+        name: document.getElementById('profNameInput').value.trim() || 'Links da Mari',
+        bio: document.getElementById('profBioInput').value.trim(),
+        avatarUrl: document.getElementById('profAvatarInput').value.trim(),
+        whatsapp: document.getElementById('profWhatsappInput').value.trim(),
+        instagram: document.getElementById('profInstagramInput').value.trim()
+      };
+      persistProfile();
+      closeProfileModal();
+      showToast('Perfil da Mari atualizado!');
+    }
+
+    function exportBackup() {
+      const data = {
+        profile,
+        products,
+        exportedAt: new Date().toISOString()
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `links-da-mari-backup.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast('Backup baixado com sucesso!');
+    }
+
+    function importBackup(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const imported = JSON.parse(e.target.result);
+          if (Array.isArray(imported.products)) {
+            products = imported.products;
+            if (imported.profile) {
+              profile = { ...defaultProfile, ...imported.profile };
+              persistProfile();
+            }
+            persistProducts();
+            showToast('Links importados com sucesso!');
+          } else {
+            alert('Arquivo de backup inválido.');
+          }
+        } catch (err) {
+          alert('Erro ao ler o arquivo JSON.');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
+    }
+
+    function showToast(message) {
+      const container = document.getElementById('toastContainer');
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.innerHTML = `<i data-lucide="check-circle-2" class="icon-sm" style="color:#6ee7b7"></i> <span>${escapeHtml(message)}</span>`;
+      container.appendChild(toast);
+      lucide.createIcons();
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.25s ease';
+        setTimeout(() => toast.remove(), 250);
+      }, 2800);
+    }
+
+    function escapeHtml(str) {
+      return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
+    function escapeQuotes(str) {
+      return String(str ?? '').replace(/'/g, "\\'");
+    }
+
+    // Close modals when clicking outside
+    window.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-backdrop')) {
+        e.target.classList.remove('open');
+      }
+    });
+
+    // Initialize App
+    renderProfile();
+    updateStats();
+    renderCategories();
+    renderProducts();
+  </script>
+</body>
+</html>
