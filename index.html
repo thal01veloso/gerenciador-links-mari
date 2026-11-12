@@ -1076,6 +1076,20 @@
 
     const defaultProducts = [
       {
+        id: 'prod-projeto-babando',
+        title: 'Projeto Babando | 30 Dias Para Reacender o Desejo e a Conexão',
+        url: 'https://mais-interesse.thalesveloso.com.br/',
+        price: 'R$ 47,00',
+        oldPrice: '',
+        category: 'Relacionamento',
+        cta: 'Quero Conhecer!',
+        image: 'https://mais-interesse.thalesveloso.com.br/capa%20do%20produto.png',
+        desc: 'Um plano prático de 30 dias para sair do automático, criar momentos de conexão e redescobrir a intimidade no relacionamento.',
+        featured: true,
+        active: true,
+        clicks: 0
+      },
+      {
         id: 'prod-1',
         title: 'Kit Skincare Glow Rosé - Edição Completa',
         url: 'https://wa.me/5511999999999?text=Oi%20Mari!%20Quero%20saber%20mais%20sobre%20o%20Kit%20Skincare',
@@ -1136,7 +1150,15 @@
     function loadProducts() {
       try {
         const saved = localStorage.getItem(STORAGE_KEY_PRODUCTS);
-        return saved ? JSON.parse(saved) : [...defaultProducts];
+        if (!saved) return [...defaultProducts];
+        const parsed = JSON.parse(saved);
+        // Garante que novos produtos padrão adicionados no código apareçam mesmo se já houver localStorage salvo
+        defaultProducts.forEach(defProd => {
+          if (!parsed.some(p => p.id === defProd.id || p.url === defProd.url)) {
+            parsed.unshift(defProd);
+          }
+        });
+        return parsed;
       } catch (e) {
         return [...defaultProducts];
       }
